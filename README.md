@@ -38,6 +38,24 @@ Or use a specific tag:
 docker pull ghcr.io/adfastltda/portainer:v2.39.2
 ```
 
+## Removing Portainer Completely
+
+To completely remove Portainer and all its data, run the following commands:
+
+```bash
+# Stop and remove the Portainer container
+docker stop portainer
+docker rm portainer
+
+# Remove the Portainer image
+docker rmi ghcr.io/adfastltda/portainer:latest
+
+# Remove the Portainer data volume (this will delete all Portainer settings, users, endpoints, etc.)
+docker volume rm portainer_data
+```
+
+**Warning:** Removing the `portainer_data` volume will permanently delete all Portainer configuration data. This action cannot be undone.
+
 ## Getting started
 
 - [Deploy Portainer](https://docs.portainer.io/start/install-ce)
