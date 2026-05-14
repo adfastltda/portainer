@@ -23,7 +23,13 @@ Portainer CE is updated regularly. We aim to do an update release every couple o
 This fork provides a custom Portainer CE image with BE features hidden from the UI. Pull and run it directly from GitHub Container Registry:
 
 ```bash
+# Pull the latest image
 docker pull ghcr.io/adfastltda/portainer:latest
+
+# Create the volume for Portainer data
+docker volume create portainer_data
+
+# Run Portainer
 docker run -d -p 8000:8000 -p 9443:9443 \
   --name portainer \
   --restart=always \
