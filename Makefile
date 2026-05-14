@@ -33,7 +33,7 @@ build-storybook: ## Build and serve the storybook files
 	pnpm run storybook:build
 
 build-ghcr: build-all ## Build the Portainer image and push to GHCR
-	docker buildx build --push -t ghcr.io/adfastltda/portainer-ce:$(TAG) -t ghcr.io/adfastltda/portainer-ce:latest -f build/linux/Dockerfile .
+	docker buildx build --push -t ghcr.io/adfastltda/portainer:$(TAG) -t ghcr.io/adfastltda/portainer:latest -f build/linux/Dockerfile .
 
 ##@ Build dependencies
 .PHONY: deps server-deps client-deps tidy
