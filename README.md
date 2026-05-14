@@ -18,6 +18,26 @@ Portainer CE is updated regularly. We aim to do an update release every couple o
 
 [![latest version](https://img.shields.io/github/v/release/portainer/portainer?color=%2344cc11&label=Latest%20release&style=for-the-badge)](https://github.com/portainer/portainer/releases/latest)
 
+## Using the Custom GHCR Image
+
+This fork provides a custom Portainer CE image with BE features hidden from the UI. Pull and run it directly from GitHub Container Registry:
+
+```bash
+docker pull ghcr.io/adfastltda/portainer:latest
+docker run -d -p 8000:8000 -p 9443:9443 \
+  --name portainer \
+  --restart=always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v portainer_data:/data \
+  ghcr.io/adfastltda/portainer:latest
+```
+
+Or use a specific tag:
+
+```bash
+docker pull ghcr.io/adfastltda/portainer:2.39.2
+```
+
 ## Getting started
 
 - [Deploy Portainer](https://docs.portainer.io/start/install-ce)
