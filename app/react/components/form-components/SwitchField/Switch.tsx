@@ -1,7 +1,9 @@
 import clsx from 'clsx';
 
-import { isLimitedToBE } from '@/react/portainer/feature-flags/feature-flags.service';
-import { FeatureId } from '@/react/portainer/feature-flags/enums';
+import {
+  selectShow,
+} from '@/react/portainer/feature-flags/feature-flags.service';
+import { FeatureId, FeatureState } from '@/react/portainer/feature-flags/enums';
 import { AutomationTestingProps } from '@/types';
 
 import { BEFeatureIndicator } from '@@/BEFeatureIndicator';
@@ -33,7 +35,12 @@ export function Switch({
   featureId,
   className,
 }: Props) {
-  const limitedToBE = isLimitedToBE(featureId);
+  const show = featureId ? selectShow(featureId) : FeatureState.VISIBLE;
+  if (show === FeatureState.HIDDEN) {
+    return null;
+  }
+
+  const limitedToBE = show === FeatureState.LIMITED_BE;
 
   return (
     <>

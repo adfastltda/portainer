@@ -1,8 +1,11 @@
 import clsx from 'clsx';
 import { ComponentType } from 'react';
 
-import { FeatureId } from '@/react/portainer/feature-flags/enums';
-import { isLimitedToBE } from '@/react/portainer/feature-flags/feature-flags.service';
+import { FeatureId, FeatureState } from '@/react/portainer/feature-flags/enums';
+import {
+  selectShow,
+  isLimitedToBE,
+} from '@/react/portainer/feature-flags/feature-flags.service';
 
 import { BEFeatureIndicator } from '@@/BEFeatureIndicator';
 
@@ -29,6 +32,11 @@ export function Option({
   featureId,
 }: Props) {
   const IconComponent = icon;
+  const show = featureId ? selectShow(featureId) : FeatureState.VISIBLE;
+  if (show === FeatureState.HIDDEN) {
+    return null;
+  }
+
   const isLimited = isLimitedToBE(featureId);
   return (
     <button

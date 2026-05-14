@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
-import { FeatureId } from '@/react/portainer/feature-flags/enums';
-import { isLimitedToBE } from '@/react/portainer/feature-flags/feature-flags.service';
+import { FeatureId, FeatureState } from '@/react/portainer/feature-flags/enums';
+import { selectShow } from '@/react/portainer/feature-flags/feature-flags.service';
 
 import { BEFeatureIndicator } from './BEFeatureIndicator';
 
@@ -38,8 +38,12 @@ export function BEOverlay({
   children: React.ReactNode;
   variant?: 'form-section' | 'widget' | 'multi-widget';
 }) {
-  const isLimited = isLimitedToBE(featureId);
-  if (!isLimited) {
+  const show = selectShow(featureId);
+  if (show === FeatureState.HIDDEN) {
+    return null;
+  }
+
+  if (show === FeatureState.VISIBLE) {
     return <>{children}</>;
   }
 

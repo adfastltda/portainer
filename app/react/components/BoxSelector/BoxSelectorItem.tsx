@@ -6,6 +6,8 @@ import { Icon } from '@/react/components/Icon';
 
 import { BadgeIcon } from '@@/BadgeIcon';
 import { getFeatureDetails } from '@@/BEFeatureIndicator/utils';
+import { FeatureState } from '@/react/portainer/feature-flags/enums';
+import { selectShow } from '@/react/portainer/feature-flags/feature-flags.service';
 
 import styles from './BoxSelectorItem.module.css';
 import { BoxSelectorOption, Value } from './types';
@@ -36,6 +38,11 @@ export function BoxSelectorItem<T extends Value>({
   slim = false,
   checkIcon = Check,
 }: Props<T>) {
+  const show = option.feature ? selectShow(option.feature) : FeatureState.VISIBLE;
+  if (show === FeatureState.HIDDEN) {
+    return null;
+  }
+
   const { limitedToBE = false, url: featureUrl } = getFeatureDetails(
     option.feature
   );

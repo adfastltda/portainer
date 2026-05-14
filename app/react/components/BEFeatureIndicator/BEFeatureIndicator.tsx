@@ -4,7 +4,8 @@ import { Briefcase } from 'lucide-react';
 
 import './BEFeatureIndicator.css';
 
-import { FeatureId } from '@/react/portainer/feature-flags/enums';
+import { FeatureId, FeatureState } from '@/react/portainer/feature-flags/enums';
+import { selectShow } from '@/react/portainer/feature-flags/feature-flags.service';
 
 import { Icon } from '@@/Icon';
 
@@ -23,6 +24,11 @@ export function BEFeatureIndicator({
   showIcon = true,
   className = '',
 }: Props) {
+  const show = selectShow(featureId);
+  if (show === FeatureState.HIDDEN) {
+    return null;
+  }
+
   const { url, limitedToBE = false } = getFeatureDetails(featureId);
 
   return (

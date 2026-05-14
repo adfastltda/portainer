@@ -67,6 +67,9 @@ export function selectShow(featureId?: FeatureId) {
   }
 
   if (state.features[featureId] === Edition.BE) {
+    if (state.currentEdition === Edition.CE) {
+      return FeatureState.HIDDEN;
+    }
     return FeatureState.LIMITED_BE;
   }
 
