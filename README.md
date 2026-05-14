@@ -23,9 +23,6 @@ Portainer CE is updated regularly. We aim to do an update release every couple o
 This fork provides a custom Portainer CE image with BE features hidden from the UI. Pull and run it directly from GitHub Container Registry:
 
 ```bash
-# Pull the latest image
-docker pull ghcr.io/adfastltda/portainer:latest
-
 # Create the volume for Portainer data
 docker volume create portainer_data
 
@@ -43,6 +40,29 @@ Or use a specific tag:
 ```bash
 docker pull ghcr.io/adfastltda/portainer:v2.39.2
 ```
+
+## Upgrading Portainer
+
+To upgrade to the latest version while keeping your data:
+
+```bash
+# Pull the latest image
+docker pull ghcr.io/adfastltda/portainer:latest
+
+# Stop and remove the old container
+docker stop portainer
+docker rm portainer
+
+# Run the new version (your data in portainer_data is preserved)
+docker run -d -p 8000:8000 -p 9443:9443 \
+  --name portainer \
+  --restart=always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v portainer_data:/data \
+  ghcr.io/adfastltda/portainer:latest
+```
+
+Your settings, endpoints, users and stacks are preserved in the `portainer_data` volume.
 
 ## Removing Portainer Completely
 
