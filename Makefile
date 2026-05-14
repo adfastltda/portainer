@@ -1,7 +1,7 @@
 # build target, can be one of "production", "testing", "development"
 ENV=development
 WEBPACK_CONFIG=webpack/webpack.$(ENV).js
-TAG=local
+TAG=2.39.2
 
 SWAG=go run github.com/swaggo/swag/cmd/swag@v1.16.6
 GOTESTSUM_VERSION?=v1.13.0
@@ -31,6 +31,9 @@ build-image: build-all ## Build the Portainer image locally
 
 build-storybook: ## Build and serve the storybook files
 	pnpm run storybook:build
+
+build-ghcr: build-all ## Build the Portainer image and push to GHCR
+	docker buildx build --push -t ghcr.io/adfastltda/portainer-ce:$(TAG) -t ghcr.io/adfastltda/portainer-ce:latest -f build/linux/Dockerfile .
 
 ##@ Build dependencies
 .PHONY: deps server-deps client-deps tidy
