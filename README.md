@@ -35,7 +35,7 @@ docker run -d -p 8000:8000 -p 9443:9443 \
 Or use a specific tag:
 
 ```bash
-docker pull ghcr.io/adfastltda/portainer:2.39.2
+docker pull ghcr.io/adfastltda/portainer:v2.39.2
 ```
 
 ## Getting started

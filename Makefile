@@ -1,7 +1,7 @@
 # build target, can be one of "production", "testing", "development"
 ENV=development
 WEBPACK_CONFIG=webpack/webpack.$(ENV).js
-TAG=2.39.2
+TAG=v2.39.2
 
 SWAG=go run github.com/swaggo/swag/cmd/swag@v1.16.6
 GOTESTSUM_VERSION?=v1.13.0
